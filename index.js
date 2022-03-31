@@ -2,6 +2,16 @@
 import dotenv from "dotenv";
 dotenv.config({path:'./.env'});
 
+// Mongo Client Init
+import mongoose from "mongoose";
+try {
+  await mongoose.connect(process.env.DB_URL);
+  console.log("DB CONNECTION SUCCESSFUL!!");
+} catch (error) {
+  console.log(error);
+  process.exit(1);
+}
+
 // Running App
 import app from "./app.js";
 const PORT = process.env.PORT || 8000;

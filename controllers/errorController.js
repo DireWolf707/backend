@@ -8,7 +8,6 @@ const devError = (err,res) => {
 }
 
 const prodError = (err,res) => {
-    console.log('===ok===');
     if (err.isOperational) {
         // known errors
         res.status(err.statusCode).json({
@@ -25,7 +24,7 @@ const prodError = (err,res) => {
     }
 }
 
-export default (err,req,res) => {
+export default (err,req,res,next) => {
     err.statusCode = err.statusCode || 500;
     err.status = err.status || 'error';
     

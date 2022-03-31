@@ -1,7 +1,6 @@
 import express from "express";
 import morgan from "morgan";
 import globalErrorHandler from "./controllers/errorController.js";
-import AppError from "./utils/appError.js";
 
 // App Init
 const app = express();

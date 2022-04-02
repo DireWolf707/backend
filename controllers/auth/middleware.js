@@ -25,7 +25,7 @@ export const loginRequired = asyncWrapper(async (req,res,next) => {
 
 export const authorize = (...roles) => {
     return (req,res,next) => {
-        if (!req.user.role.includes(roles)) {
+        if ( !roles.includes(req.user.role) ) {
             throw new AppError('access denied', 403)
         }
         

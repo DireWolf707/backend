@@ -45,8 +45,6 @@ export const signup = asyncWrapper(async (req,res,next) => {
         password: req.body.password,
         username: req.body.username
     });
-    // Gen Token
-    const token = signToken(user._id)
     // Send Response
     sendTokenCookieResponse(user, res);
 })

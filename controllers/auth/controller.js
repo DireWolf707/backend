@@ -54,7 +54,6 @@ export const login = asyncWrapper(async (req,res,next) => {
     // check user exist and password
     const user = await User.findOne({ username: username });
     if (!user || !(await user.checkPassword(password)) ) {
-        next(new AppError('Incorrect email or password!', 401));
         throw new AppError('Incorrect email or password!', 401);
     }
     // Send Response
@@ -91,12 +90,12 @@ export const userUpdate = asyncWrapper(async (req,res,next) => {
 
 export const passwordUpdate = asyncWrapper(async (req,res,next) => {
     let user = req.user;
-    const { pass, pass1 } = req.body;
-    if ( !(await user.checkPassword(pass)) ) {
+    const { password, password1 } = req.body;
+    if ( !(await user.checkPassword(password)) ) {
         throw new AppError('Current password is incorrect!', 401);
     }
     // update password
-    user.set({ password: pass1 });
+    user.set({ password: password1 });
     user = await user.save();
     // Send Response
     sendResponse(user, res);

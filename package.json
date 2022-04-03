@@ -22,5 +22,8 @@
     "mongoose": "^6.2.9",
     "morgan": "^1.10.0",
     "validator": "^13.7.0"
+  },
+  "engines": {
+    "node": "16.13.1"
   }
 }

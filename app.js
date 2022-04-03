@@ -25,7 +25,7 @@ app.get('/', (req,res) => {
     })
 });
 
-app.use(userRouter);
+app.use('/user',userRouter);
 
 // 404 Handler
 app.all('*', (req,res,next) => {

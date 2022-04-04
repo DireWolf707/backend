@@ -6,11 +6,19 @@ const usernameValidation = (field) => {
                             .exists({checkFalsy:true});
 };
 
-const passwordValidation = (field) => {
-    return body(field, 'password is invalid!')
+// For insert
+const passwordValidation = (field, msgField = 'password') => {
+    return body(field, `${msgField} is invalid!`)
                             .isString().bail()
                             .exists({checkFalsy:true}).bail()
-                            .isLength({ min: 8 }).withMessage('min length of password is 8!');
+                            .isLength({ min: 8 }).withMessage(`min length of ${msgField} is 8!`);
+};
+
+// For update
+const passwordValidation2 = (field, msgField = 'password') => {
+    return body(field, `${msgField} is invalid!`)
+                            .isString().bail()
+                            .exists({checkFalsy:true}).bail();
 };
 
 const emailValidation = (field) => {
@@ -35,6 +43,7 @@ const passwordMatchValidation = (field1, field2, setPswd = true) => {
 
 export const loginValidationChain = [
     usernameValidation('username'),
+    passwordValidation2('password')
 ]
 
 export const signupValidationChain = [
@@ -42,7 +51,7 @@ export const signupValidationChain = [
     nameValidation('name'),
     emailValidation('email'),
     passwordValidation('password1'),
-    passwordValidation('password2'),
+    passwordValidation('password2', 'confirm password'),
     passwordMatchValidation('password1', 'password2')
 ]
 
@@ -53,8 +62,8 @@ export const userUpdateValidationChain = [
 ]
 
 export const passwordUpdateValidationChain = [
-    passwordValidation('password'),
-    passwordValidation('password1'),
-    passwordValidation('password2'),
+    passwordValidation2('password', 'old password'),
+    passwordValidation2('password1', 'new password'),
+    passwordValidation2('password2', 'new password confirm'),
     passwordMatchValidation('password1', 'password2', false)
 ]

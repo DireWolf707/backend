@@ -4,6 +4,9 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import userRouter from "./routes/userRoutes.js";
 import globalErrorHandler from "./controllers/errorController.js";
+// Setting Environment Variables
+import dotenv from "dotenv";
+dotenv.config({path:'./.env'});
 
 // App Init
 const app = express();
@@ -11,7 +14,7 @@ const app = express();
 // Middlewares
 app.use(morgan('dev'));
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: process.env.NODE_ENV == 'development' ? 'http://localhost:3000' : 'https://frontend-direwolf707.vercel.app',
     credentials: true
 }));
 app.use(express.json())

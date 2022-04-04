@@ -17,7 +17,7 @@ const sendTokenCookieResponse = (user, res) => {
         expires: new Date( Date.now() + 24*60*60*1000 ), // 24hrs in ms
         httpOnly: true,
         secure: process.env.NODE_ENV == 'production',
-        sameSite: 'lax'
+        sameSite: 'None'
     }).status(200).json({
         status: 'success',
         name: user.name,
@@ -65,7 +65,7 @@ export const logout = (req,res,next) => {
         expires: new Date(Date.now()),
         httpOnly: true,
         secure: process.env.NODE_ENV == 'production',
-        sameSite: 'lax'
+        sameSite: 'None'
     }).status(200).json({
         status: 'success'
     })

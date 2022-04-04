@@ -31,13 +31,15 @@ export default (err,req,res,next) => {
     err.statusCode = err.statusCode || 500;
     err.status = err.status || 'error';
 
-    let error = {...err};
-    if (err.name === 'CastError') error = handleCastErrorDB(error);
-    if (err.code === 11000) error = handleDuplicateFieldDB(error);
-    if (err.name === 'ValidationError') error = handleValidationErrorDB(error);
-    if (err.name === 'JsonWebTokenError') error = handleJsonWebTokenError();
-    if (err.name === 'TokenExpiredError') error = handleTokenExpiredError();
-    
+    let error = {...err, message: err.message, stack: err.stack};
+    if (!err.isOperational) {
+        if (err.name === 'CastError') error = handleCastErrorDB(error);
+        else if (err.code === 11000) error = handleDuplicateFieldDB(error);
+        else if (err.name === 'ValidationError') error = handleValidationErrorDB(error);
+        else if (err.name === 'JsonWebTokenError') error = handleJsonWebTokenError();
+        else if (err.name === 'TokenExpiredError') error = handleTokenExpiredError();
+    }
+
     if (process.env.NODE_ENV === 'development') {
         devError(error, res);
     } else if (process.env.NODE_ENV === 'production') {

@@ -3,7 +3,7 @@ import morgan from "morgan";
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import userRouter from "./routes/userRoutes.js";
-import globalErrorHandler from "./controllers/errorController.js";
+import globalErrorHandler from "./controllers/error/controller.js";
 // Setting Environment Variables
 import dotenv from "dotenv";
 dotenv.config({path:'./.env'});
